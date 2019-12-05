@@ -1,9 +1,9 @@
 #==================================================
 # SmoothLookAt Function
 #==================================================
-#    for RigidBody2D -> Call SmoothLookAt from integrate_forces()
-#    for KinematicBody2D -> Call SmoothLookAt from _physics_process()
-#    for Node2D -> Call SmoothLookAt from _process()
+#    SmoothLookAtRigid -> Call from integrate_forces()
+#    SmoothLookAt for KinematicBody2D -> Call from _physics_process()
+#    SmoothLookAt for Node2D -> Call from _process()
 #    ----------
 #    nodeToTurn = the node you want to turn
 #    targetPosition = the Vector2 you want your nodeToTurn to face
@@ -12,10 +12,9 @@
 #    X+ is assumed to be forward, the face/nose of your object
 
 func SmoothLookAt( nodeToTurn, targetPosition, turnSpeed ):
-	if nodeToTurn is KinematicBody2D or nodeToTurn is Node2D:
-		nodeToTurn.rotate( deg2rad( AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed ) ) )
-	elif nodeToTurn is RigidBody2D:
-		nodeToTurn.angular_velocity = AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed )
+	nodeToTurn.rotate( deg2rad( AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed ) ) )
+func SmoothLookAtRigid( nodeToTurn, targetPosition, turnSpeed ):
+	nodeToTurn.angular_velocity = AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed )
 
 #-------------------------
 # these are only called from above functions
