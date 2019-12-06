@@ -9,8 +9,10 @@ How To Use:
 
      Add the smoothlookat2d.gd to your AutoLoad (Projects->Project Settings->AutoLoad) and then call as needed.
 
-     Example:
+     Example for KinematicBody2D/Node2D:
           smoothlookat2d.SmoothLookAt( self, Vector2( 0, 0 ), 2.0 )
-          - if called from a RigidBody2D it would cause the RigidBody to turn to face 0,0 over a period of 2 seconds (ish).
+     Example for RigidBody2D
+          smoothlookat2d.SmoothLookAtRigid( self, Vector2( 0, 0 ), 2.0 )
+
 
       
