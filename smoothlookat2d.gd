@@ -7,7 +7,7 @@
 #    ----------
 #    nodeToTurn = the node you want to turn
 #    targetPosition = the Vector2 you want your nodeToTurn to face
-#    turnSpeed = how quickly nodeToTurn will turn to face the direction you want it to face
+#    turnSpeed = how long it will take nodeToTurn to face the direction you want it to face
 #    ----------
 #    X+ is assumed to be forward, the face/nose of your object
 
