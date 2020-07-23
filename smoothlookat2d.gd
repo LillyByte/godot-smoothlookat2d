@@ -12,15 +12,8 @@
 #    X+ is assumed to be forward, the face/nose of your object
 
 static func SmoothLookAt( nodeToTurn, targetPosition, turnSpeed ):
-	nodeToTurn.rotate( deg2rad( AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed ) ) )
-static func SmoothLookAtRigid( nodeToTurn, targetPosition, turnSpeed ):
-	nodeToTurn.angular_velocity = AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed )
+	nodeToTurn.transform = nodeToTurn.transform.interpolate_with(Transform2D(targetPosition.angle_to_point(nodeToTurn.position), nodeToTurn.position), turnSpeed)
 
-#-------------------------
-# these are only called from above functions
-static func AngularLookAt( currentPosition, currentRotation, targetPosition, turnTime ):
-	return GetAngle( currentRotation, TargetAngle( currentPosition, targetPosition ) )/turnTime
-static func TargetAngle( currentPosition, targetPosition ):
-	return (targetPosition - currentPosition).angle()
-static func GetAngle( currentAngle, targetAngle ):
-	return fposmod( targetAngle - currentAngle + PI, TAU ) - PI
+static func SmoothLookAtRigid( nodeToTurn, targetPosition, turnSpeed ):
+	var target = targetPosition.angle_to_point(nodeToTurn.position)
+	nodeToTurn.angular_velocity = (fposmod(target - nodeToTurn.rotation + PI, TAU ) - PI) * turnSpeed
