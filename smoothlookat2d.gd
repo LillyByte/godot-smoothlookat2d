@@ -6,21 +6,14 @@
 #    SmoothLookAt for Node2D -> Call from _process()
 #    ----------
 #    nodeToTurn = the node you want to turn
-#    targetPosition = the Vector2 you want your nodeToTurn to face
+#    targetPosition = the target position (Vector2) you want your nodeToTurn to face
 #    turnSpeed = how long it will take nodeToTurn to face the direction you want it to face
 #    ----------
 #    X+ is assumed to be forward, the face/nose of your object
 
-func SmoothLookAt( nodeToTurn, targetPosition, turnSpeed ):
-	nodeToTurn.rotate( deg2rad( AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed ) ) )
-func SmoothLookAtRigid( nodeToTurn, targetPosition, turnSpeed ):
-	nodeToTurn.angular_velocity = AngularLookAt( nodeToTurn.global_position, nodeToTurn.global_rotation, targetPosition, turnSpeed )
+static func SmoothLookAt( nodeToTurn, targetPosition, turnSpeed ):
+	nodeToTurn.transform = nodeToTurn.transform.interpolate_with(Transform2D(targetPosition.angle_to_point(nodeToTurn.position), nodeToTurn.position), turnSpeed)
 
-#-------------------------
-# these are only called from above functions
-func AngularLookAt( currentPosition, currentRotation, targetPosition, turnTime ):
-	return GetAngle( currentRotation, TargetAngle( currentPosition, targetPosition ) )/turnTime
-func TargetAngle( currentPosition, targetPosition ):
-	return (targetPosition - currentPosition).angle()
-func GetAngle( currentAngle, targetAngle ):
-	return fposmod( targetAngle - currentAngle + PI, PI * 2 ) - PI
+static func SmoothLookAtRigid( nodeToTurn, targetPosition, turnSpeed ):
+	var target = targetPosition.angle_to_point(nodeToTurn.position)
+	nodeToTurn.angular_velocity = (fposmod(target - nodeToTurn.rotation + PI, TAU ) - PI) * turnSpeed
