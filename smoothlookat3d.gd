@@ -13,7 +13,7 @@
 tool
 
 static func SmoothLookAt( nodeToTurn, targetPosition, turnSpeed ):
-	var transf = Transform(Basis(), nodeToTurn.global_transform.origin).looking_at(targetPosition, Vector3.UP)
+	var transf = nodeToTurn.global_transform.looking_at(targetPosition, Vector3.UP)
 	nodeToTurn.global_transform = nodeToTurn.global_transform.interpolate_with(transf, turnSpeed)
 
 static func SmoothLookAtRigid( nodeToTurn, targetPosition, turnSpeed, oriented = true ):
