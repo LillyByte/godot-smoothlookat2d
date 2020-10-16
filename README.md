@@ -1,6 +1,6 @@
 # godot-smoothlookat2d
 
-NOTICE! There is also a 3D version of the script here too!
+NOTICE! There is also a 3D version of the script here too! Also for 3D, we have additional functions for applying local impulses to RigidBodies.
 
 This is a simple script for turning RigidBody2Ds/RigidBodies, KinematicBody2Ds/KinematicBodies, and Node2D/Spatials to smoothly turn to look at object over time using the shortest possible angle (rotating left or right). 3D Objects can be set to orient their up axis.
 
